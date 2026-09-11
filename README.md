@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Domain-Aligned Self-Supervised Backbones for Training-Free Anomaly Detection
 
 Code and numerical results for the paper *"Domain-Aligned Self-Supervised Backbones for
@@ -87,6 +86,3 @@ publication).
 
 Code is released under the MIT License (see `LICENSE`). Numerical result files
 (`splits/`, `scores/`, `samples/`) are released under CC BY 4.0.
-=======
-# domain-aligned-ad
->>>>>>> ed41b7a9eabf473bee94df1cf7604f1d3ea7df0b
