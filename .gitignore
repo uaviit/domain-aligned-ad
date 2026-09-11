@@ -1,0 +1,13 @@
+# data (not part of this repository)
+datasets/
+results/
+
+# caches and runtime artifacts
+__pycache__/
+*.pyc
+.hf_cache/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
