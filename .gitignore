@@ -1,13 +1,28 @@
-# data (not part of this repository)
+# Private data and generated numerical outputs
 datasets/
-results/
+outputs/
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
 
-# caches and runtime artifacts
+# Local environments and secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Caches and logs
 __pycache__/
 *.pyc
-.hf_cache/
 *.log
+.hf_cache/
 
-# OS
+# Generated figures
+figures/*.png
+figures/*.pdf
+
+# OS files
 .DS_Store
 Thumbs.db

@@ -1,0 +1,125 @@
+{
+  "protocol": {
+    "name": "P6-CAL",
+    "calibration_seed": 606,
+    "train_normal": 2167,
+    "heldout_normal": 542,
+    "calibration_normal": 271,
+    "test_normal": 271,
+    "test_defective": 19
+  },
+  "v4_pretraining": {
+    "architecture": "DINOv2 ViT-S/14, 384 dimensions, 6 heads, 12 blocks, 0 register tokens",
+    "input_size": 224,
+    "patch_size": 14,
+    "prototype_count": 64,
+    "teacher_temperature": 0.04,
+    "student_temperature": 0.1,
+    "batch_size": 96,
+    "total_iterations": 18400,
+    "base_learning_rate": 0.00122,
+    "minimum_learning_rate": 0.000001,
+    "warmup_iterations": 920,
+    "weight_decay_start": 0.04,
+    "weight_decay_end": 0.4,
+    "drop_path_rate": 0.2,
+    "layerscale": 0.00001,
+    "seed": 0,
+    "checkpoint_iteration_for_evaluation": 11000,
+    "note": "Configuration record only; V4 pretraining code and weights are not redistributed in this minimal release."
+  },
+  "knn": {
+    "v4": {
+      "label": "V4 + kNN",
+      "checkpoint": "V4_CHECKPOINT",
+      "layers": [11],
+      "image_size": 224,
+      "interpolation": "bilinear",
+      "fp16": true,
+      "neighbours": 3,
+      "top_fraction": 0.01,
+      "output": "v4_knn.npz"
+    },
+    "official_vitb": {
+      "label": "Official ViT-B + kNN",
+      "anomalib_name": "dinov2_vit_base_14",
+      "layers": [6, 10],
+      "image_size": 252,
+      "interpolation": "bicubic",
+      "fp16": false,
+      "neighbours": 3,
+      "top_fraction": 0.01,
+      "ensemble": "minmax_geometric_mean",
+      "ensemble_fit": "calibration_normal",
+      "output": "official_vitb_knn.npz"
+    },
+    "official_vits": {
+      "label": "Official ViT-S + kNN",
+      "anomalib_name": "dinov2_vit_small_14",
+      "layers": [11],
+      "image_size": 224,
+      "interpolation": "bilinear",
+      "fp16": true,
+      "neighbours": 3,
+      "top_fraction": 0.01,
+      "output": "official_vits_knn.npz"
+    }
+  },
+  "reconstruction": {
+    "seed": 1,
+    "total_iterations": 10000,
+    "batch_size": 16,
+    "learning_rate": 0.002,
+    "bottleneck0_learning_rate": 0.0002,
+    "weight_decay": 0.0001,
+    "warmup_iterations": 100,
+    "final_learning_rate_ratio": 0.1,
+    "gradient_clip": 0.1,
+    "target_layers": [2, 3, 4, 5, 6, 7, 8, 9],
+    "evaluation_top_fraction": 0.01,
+    "evaluation_map_size": 256,
+    "branches": {
+      "official_vitb_dinomaly2": {
+        "label": "Official ViT-B + Dinomaly2",
+        "backbone": "official_vitb",
+        "image_size": 252,
+        "embedding_dimension": 768,
+        "attention_heads": 12,
+        "dropout": 0.4,
+        "output": "official_vitb_dinomaly2.npz"
+      },
+      "v4_dinomaly2_252": {
+        "label": "V4 + Dinomaly2 (252)",
+        "backbone": "v4_student",
+        "image_size": 252,
+        "embedding_dimension": 384,
+        "attention_heads": 6,
+        "dropout": 0.3,
+        "output": "v4_dinomaly2_252.npz"
+      },
+      "v4_dinomaly2_224": {
+        "label": "V4 + Dinomaly2 (224)",
+        "backbone": "v4_student",
+        "image_size": 224,
+        "embedding_dimension": 384,
+        "attention_heads": 6,
+        "dropout": 0.3,
+        "output": "v4_dinomaly2_224.npz"
+      }
+    }
+  },
+  "evaluation": {
+    "k_values": [1.0, 1.5, 2.0, 2.5, 3.0, 4.0],
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 606,
+    "reference_method": "V4 + kNN",
+    "method_order": [
+      "V4 + kNN",
+      "Official ViT-B + kNN",
+      "Official ViT-S + kNN",
+      "Official ViT-B + Dinomaly2",
+      "V4 + Dinomaly2 (252)",
+      "V4 + Dinomaly2 (224)"
+    ]
+  }
+}
