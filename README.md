@@ -1,6 +1,6 @@
 # Domain-Aligned Anomaly Detection
 
-Official evaluation code for the manuscript **"Domain-Aligned Self-Supervised Backbones for Anomaly Detection with Defect-Free Training: A Case Study on Ground-Wire Hanging Plate Inspection"** (*International Journal of Electrical Power & Energy Systems*, under review).
+Self-supervised anomaly detection for ground-wire hanging plate inspection: a file-disjoint comparison of a domain-aligned backbone and official DINOv2 models under kNN and reconstruction scoring.
 
 ## Overview
 
@@ -136,12 +136,6 @@ domain-aligned-ad/
 ## Reproducibility notes
 
 Randomized GPU kernels, dependency versions, and upstream repository revisions can cause small numerical differences. For strict archival reproduction, record the environment and upstream commit identifiers alongside the generated `p6_metrics.json`. Results on the confidential GBS1/UXGH images, official-weight downloads, and the private V4 checkpoint are not independently reproducible without those external inputs.
-
-## Citation
-
-If you use this code, please cite:
-
-> Domain-Aligned Self-Supervised Backbones for Anomaly Detection with Defect-Free Training: A Case Study on Ground-Wire Hanging Plate Inspection. *International Journal of Electrical Power & Energy Systems* (under review).
 
 ## License
 
